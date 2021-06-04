@@ -7,8 +7,15 @@
 </template>
 
 <script>
+import api from '../services';
+
 export default {
-    name: 'HomePage'
+    name: 'HomePage',
+    async mounted() {
+        await api.getCategory().then((result) => {
+            console.log(result);
+        })
+    }
 }
 </script>
 
