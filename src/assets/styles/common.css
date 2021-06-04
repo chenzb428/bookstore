@@ -1,0 +1,18 @@
+.clear-fix {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.container {
+    width: 1140px;
+    margin: 0 auto;
+}
