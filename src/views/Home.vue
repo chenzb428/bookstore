@@ -1,9 +1,14 @@
 <template>
     <div class="home">
         <div class="container">
-            <Left :data="categoryData" />
-            <Center />
-            <Right :data="booksData" />
+            <div class="top">
+                <Left :data="categoryData" />
+                <Center />
+                <Right :data="booksData" />
+            </div>
+            <div class="bottom">
+                <BookList :data="booksData" />
+            </div>
         </div>
     </div>
 </template>
@@ -14,13 +19,15 @@ import api from '../services';
 import Left from '../components/Home/Left';
 import Center from '../components/Home/Center';
 import Right from '../components/Home/Right';
+import BookList from '../components/BooksList';
 
 export default {
     name: 'HomePage',
     components: {
         Left,
         Center,
-        Right
+        Right,
+        BookList
     },
     data() {
         return {
@@ -46,9 +53,16 @@ export default {
 <style lang="scss" scoped>
 .home {
     .container {
-        background-color: #fff;
-        box-shadow: 0 5px 10px #d4d4d4;
-        overflow: hidden;
+        .top {
+            background-color: #fff;
+            box-shadow: 0 5px 10px #d4d4d4;
+            overflow: hidden;
+        }
+        .bottom {
+            @extend .top;
+            margin-top: 20px;
+            padding: 10px;
+        }
     }
 }
 </style>

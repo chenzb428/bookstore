@@ -30,15 +30,15 @@ export default {
     }
 
     .content {
-        padding: 10px;
-
+        margin-bottom: 20px;
+        
         .book-category {
             margin-bottom: 20px;
             font-size: 14px;
             text-align: center;
         }
         .book-name {
-            margin: 0 10px;
+            margin-left: 10px;
             line-height: 40px;
             font-size: 18px;
 

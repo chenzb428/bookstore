@@ -18,5 +18,6 @@ export default {
 .home-center {
     width: 520px;
     margin: 0 10px;
+    padding: 10px 0;
 }
 </style>
