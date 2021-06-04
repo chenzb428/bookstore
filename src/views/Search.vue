@@ -13,5 +13,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.search {
+    padding-top: 20px;
+}
 </style>

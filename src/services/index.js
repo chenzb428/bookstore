@@ -14,7 +14,7 @@ function getCategory() {
     });
 }
 
-function getBookS() {
+function getBooks() {
     return new Promise((resolve, reject) => {
         axiosGet({
             url: 'api/book/new',
@@ -30,5 +30,5 @@ function getBookS() {
 
 export default {
     getCategory,
-    getBookS
+    getBooks
 }
