@@ -56,9 +56,27 @@ function getBook(url) {
     });
 }
 
+function Register(options) {
+    return new Promise((resolve, reject) => {
+        axiosPost({
+            url: '/api/api/user/register',
+            data: {
+                ...options
+            },
+            success(res) {
+                resolve(res);
+            },
+            error(err) {
+                reject(err);
+            }
+        });
+    });
+}
+
 export default {
     getCategory,
     getBooksList,
     getHotBook,
-    getBook
+    getBook,
+    Register
 }
