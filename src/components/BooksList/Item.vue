@@ -1,21 +1,34 @@
 <template>
-    <router-link class="book-item float-left" :to="`/book/${item.id}`">
-        <div class="cover">
-            <el-image :src="item.imgUrl"></el-image>
+    <div class="book-item clear-fix">
+        <div class="cover float-left">
+            <el-image style="width: 200px; height: 200px" :src="item.bigImgUrl"></el-image>
         </div>
-        <div class="title">
-            <h1>{{ item.title }}</h1>
+        <div class="content float-left">
+            <h1 class="titile">
+                {{ item.title }}
+            </h1>
+            <div class="price">
+                <span>优惠价：{{ item.price | factPrice(item.discount) | currency }}</span>
+                <span>{{ item.price | currency }}</span>
+            </div>
+            <div class="info">
+                <div class="author">
+                    <span>{{ item.author }}</span>&nbsp;/&nbsp;
+                    <span>{{ item.publishDate }}</span>&nbsp;/&nbsp;
+                    <span>{{ item.bookConcern }}</span>
+                </div>
+                <p class="book-info">
+                    {{ item.brief }}
+                </p>
+            </div>
+            <el-button class="addCartButton" type="danger">加入购物车</el-button>
         </div>
-        <div class="price">
-            <span>{{ item.price | factPrice(item.discount) | currency }}</span>
-            <span>{{ item.price | currency }}</span>
-        </div>
-    </router-link>
+    </div>
 </template>
 
 <script>
 export default {
-    name: 'BookItem',
+    name: 'CategoryBookItem',
     props: {
         item: Object
     }
@@ -24,33 +37,50 @@ export default {
 
 <style lang="scss" scoped>
 .book-item {
-    display: block;
-    width: 204px;
-    margin: 0 10px;
+    position: relative;
+    margin: 10px 0;
     padding: 10px;
-    border: 1px solid #dfdfdf;
-    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 0 5px 10px #d4d4d4;
+    overflow: hidden;
 
     .cover {
-        width: 150px;
-        margin: 0 auto;
+        width: 200px;
     }
-    .title {
-        margin: 15px 0;
-        text-align: center;
-        font-size: 16px;
-    }
-    .price {
-        text-align: center;
-        span:last-child {
-            margin-left: 15px;
-            text-decoration: line-through;
-            color: #999;
-        }
-    }
+    .content {
+        width: 910px;
+        margin-left: 10px;
 
-    &:hover {
-        border-color: red;
+        .titile {
+            font-size: 20px;
+        }
+        .price {
+            margin: 20px 0;
+
+            span:first-child {
+                font-size: 18px;
+                color: red;
+            }
+            span:last-child {
+                margin-left: 20px;
+                text-decoration: line-through;
+                font-size: 14px;
+                color: #999;
+            }
+        }
+        .info {
+            line-height: 40px;
+
+            .book-info {
+                text-indent: 2em;
+                line-height: 20px;
+            }
+        }
+        .addCartButton {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
     }
 }
 </style>

@@ -2,7 +2,7 @@
     <div class="home-right float-left">
         <h1 class="title">热门推荐</h1>
         <div class="content" v-for="(item, index) of data" :key="index">
-            <router-link class="book" :to="`/category/${item.id}`">
+            <router-link class="book" :to="`/book/${item.id}`">
                 {{ item.title }} <span class="price">{{ item.price | factPrice(item.discount) | currency }}</span>
             </router-link>
         </div>

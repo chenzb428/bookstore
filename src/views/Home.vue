@@ -19,7 +19,7 @@ import api from '../services';
 import Left from '../components/Home/Left';
 import Center from '../components/Home/Center';
 import Right from '../components/Home/Right';
-import BookList from '../components/BooksList';
+import BookList from '../components/NewBooksList';
 
 export default {
     name: 'HomePage',

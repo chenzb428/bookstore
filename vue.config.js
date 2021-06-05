@@ -4,9 +4,9 @@ module.exports = {
             '/api': {
                 target: 'http://111.229.37.167/',
                 changOrigin: true,
-                // pathRewrite: {
-                //     '^/api': ''
-                // }
+                pathRewrite: {
+                    '^/api': ''
+                }
             }
         },
         overlay: {

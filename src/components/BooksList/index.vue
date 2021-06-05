@@ -1,14 +1,14 @@
 <template>
-    <div class="new-books">
+    <div class="category-book">
         <BookItem v-for="(item, index) of data" :key="index" :item="item" />
     </div>
 </template>
 
 <script>
-import BookItem from "./Item";
+import BookItem from './Item.vue';
 
 export default {
-    name: 'NewBooks',
+    name: 'CategoryBookList',
     props: {
         data: Array
     },

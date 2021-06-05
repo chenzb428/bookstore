@@ -9,7 +9,7 @@
 <script>
 import api from '../services';
 
-import BookList from '../components/BooksList';
+import BookList from '../components/NewBooksList';
 
 export default {
     name: 'NewBooksPage',
