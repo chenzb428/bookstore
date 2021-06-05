@@ -4,7 +4,8 @@
             <h1 class="title">搜索结果</h1>
             <div class="search-box" v-loading="isLoading">
                 <h1 class="no-data-tip" v-if="hasBook">没有搜索到匹配的图书！</h1>
-                <BooksList :data="searchData" />
+                <BooksList :data="searchData" :pageNum="pageNum" :pageSize="pageSize" :total="total"
+                           @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" />
             </div>
         </div>
     </div>
@@ -37,6 +38,7 @@ export default {
         return {
             pageNum: 1,
             pageSize: 2,
+            total: 5,
             searchData: {},
             hasBook: false,
             isLoading: false
@@ -56,12 +58,23 @@ export default {
                     } else {
                         this.hasBook = false;
                         this.searchData = result.data.data;
+                        this.total = result.data.total;
                     }
                     this.isLoading = false;
                 }
             }).catch((error) => {
                 console.log(error);
             })
+        },
+        handleSizeChange(selectedSize) {
+            this.pageSize = selectedSize;
+            //console.log(this.pageSize) //每页下拉显示数据条数
+            this.getSearchContent(this.$route.fullPath);
+        },
+        handleCurrentChange(currentPage) {
+            this.pageNum = currentPage;
+            //console.log(currentPage) //点击第几页
+            this.getSearchContent(this.$route.fullPath)
         }
     }
 }
