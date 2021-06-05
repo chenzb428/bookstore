@@ -1,13 +1,16 @@
 <template>
     <div class="new-books">
         <div class="container">
-            <BookList :data="booksData" />
+            <div class="new-books-box" v-loading="isLoading">
+                <BookList :data="booksData" />
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import api from '../services';
+import { setMinHeight } from '../libs/utils';
 
 import BookList from '../components/NewBooksList';
 
@@ -18,14 +21,19 @@ export default {
     },
     data() {
         return {
-            booksData: []
+            booksData: [],
+            isLoading: false
         }
     },
     async mounted() {
-        await api.getBooks().then((result) => {
+        setMinHeight('.new-books-box', 190);
+
+        this.isLoading = true;
+        await api.getHotBook().then((result) => {
             if (result.status === 200) {
                 this.booksData = result.data;
             }
+            this.isLoading = false;
         }).catch((error) => {
             console.log(error);
         });
