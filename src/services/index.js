@@ -73,10 +73,28 @@ function Register(options) {
     });
 }
 
+function Login(options) {
+    return new Promise((resolve, reject) => {
+        axiosPost({
+            url: '/api/api/user/login',
+            data: {
+                ...options
+            },
+            success(res) {
+                resolve(res);
+            },
+            error(err) {
+                reject(err);
+            }
+        });
+    });
+}
+
 export default {
     getCategory,
     getBooksList,
     getHotBook,
     getBook,
-    Register
+    Register,
+    Login
 }

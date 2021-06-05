@@ -12,7 +12,19 @@ export default {
     name: 'HeaderUser',
     methods: {
         loginOut() {
-            this.deleteUser();
+            this.$confirm('此操作将退出登录, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.deleteUser();
+                this.$message({
+                    type: 'success',
+                    message: '成功退出登录!'
+                });
+            }).catch(() => {
+                        
+            });
         },
         ...mapMutations('user', ['deleteUser'])
     },

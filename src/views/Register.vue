@@ -1,7 +1,7 @@
 <template>
     <div class="register" v-loading="isLoading">
         <div class="container">
-            <div class="login-box">
+            <div class="register-box">
                 <div class="account">
                     <el-input v-model="account" placeholder="请输入用户名" type="small"></el-input><span>{{ hasuser }}</span>
                 </div>
@@ -28,7 +28,7 @@ import { mapMutations } from 'vuex';
 export default {
     name: 'RegisterPage',
     mounted() {
-        setMinHeight('.login-box', 161)
+        setMinHeight('.register-box', 161)
     },
     data() {
         return {
@@ -76,11 +76,24 @@ export default {
                     mobile: this.phone
                 }).then((result) => {
                     if (result.data.code === 200) {
-                        this.isLoading = false;
                         this.saveUser(result.data.data);
                         this.$router.push('/');
+                        this.$message({
+                            type: 'success',
+                            message: '注册成功！'
+                        });
+                    } else {
+                        this.$message({
+                            type: 'error',
+                            message: '注册失败！ ' + result.data.code
+                        });
                     }
+                    this.isLoading = false;
                 }).catch((error) => {
+                    this.$message({
+                        type: 'error',
+                        message: '注册失败！ ' + error
+                    });
                     this.isLoading = false;
                 });
             }
@@ -113,7 +126,7 @@ export default {
 
 <style lang="scss" scoped>
 .register {
-    .login-box {
+    .register-box {
         display: flex;
         flex-direction: column;
         justify-content: center;
