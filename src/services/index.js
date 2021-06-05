@@ -14,20 +14,6 @@ function getCategory() {
     });
 }
 
-function getBooksList(options) {
-    return new Promise((resolve, reject) => {
-        axiosGet({
-            url: options.url + 'pageNum=' + options.pageNum + '&pageSize=' + options.pageSize,
-            success(res) {
-                resolve(res);
-            },
-            error(err) {
-                reject(err);
-            }
-        });
-    });
-}
-
 function getHotBook() {
     return new Promise((resolve, reject) => {
         axiosGet({
@@ -42,8 +28,37 @@ function getHotBook() {
     });
 }
 
+function getBooksList(options) {
+    return new Promise((resolve, reject) => {
+        axiosGet({
+            url: options.url + 'pageNum=' + options.pageNum + '&pageSize=' + options.pageSize,
+            success(res) {
+                resolve(res);
+            },
+            error(err) {
+                reject(err);
+            }
+        });
+    });
+}
+
+function getBook(url) {
+    return new Promise((resolve, reject) => {
+        axiosGet({
+            url: '/api/api' + url,
+            success(res) {
+                resolve(res);
+            },
+            error(err) {
+                reject(err);
+            }
+        });
+    });
+}
+
 export default {
     getCategory,
     getBooksList,
-    getHotBook
+    getHotBook,
+    getBook
 }
