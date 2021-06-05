@@ -4,9 +4,9 @@
             <el-image style="width: 200px; height: 200px" :src="item.bigImgUrl"></el-image>
         </div>
         <div class="content float-left">
-            <h1 class="titile">
+            <router-link class="titile" :to="`/book/${item.id}`" target="_blank">
                 {{ item.title }}
-            </h1>
+            </router-link>
             <div class="price">
                 <span>优惠价：{{ item.price | factPrice(item.discount) | currency }}</span>
                 <span>{{ item.price | currency }}</span>
@@ -53,6 +53,11 @@ export default {
 
         .titile {
             font-size: 20px;
+
+            &:hover {
+                color: red;
+                text-decoration: underline;
+            }
         }
         .price {
             margin: 20px 0;

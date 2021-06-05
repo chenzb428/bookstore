@@ -41,7 +41,7 @@ export default {
                 this.categoryData = result.data;
             }
         });
-        await api.getBooks().then((result) => {
+        await api.getHotBook().then((result) => {
             if (result.status === 200) {
                 this.booksData = result.data;
             }

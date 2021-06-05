@@ -38,16 +38,18 @@ export default {
     methods: {
         getCategoryContent(fullPath) {
             if (fullPath.indexOf("/category") != -1) {
-                api.getCategoryContent({
-                    fullPath,
+                api.getBooksList({
+                    url: '/api/api/book' + fullPath + '/page?',
                     pageNum: this.pageNum,
                     pageSize: this.pageSize
                 }).then((result) => {
                     if (result.data.code === 200) {
                         if (result.data.data.length === 0 ) {
                             this.hasBook = true;
+                        } else {
+                            this.hasBook = false;
+                            this.ContentData = result.data.data;
                         }
-                        this.ContentData = result.data.data;
                     }
                 }).catch((error) => {
                     console.log(error);

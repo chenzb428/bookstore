@@ -1,7 +1,7 @@
 <template>
     <div class="search-input float-left">
         <el-input class="input" size="small" v-model="inputValue"></el-input>
-        <router-link :to="{name: 'search', query: {keyword: inputValue}}">搜索</router-link>
+        <router-link :to="{name: 'search', query: {wd: inputValue}}">搜索</router-link>
     </div>
 </template>
 
@@ -11,16 +11,6 @@ export default {
     data() {
         return {
             inputValue: ''
-        }
-    },
-    methods: {
-        doSearch() {
-            this.$router.push({
-                path: '/search',
-                query: {
-                    keyword: this.inputValue
-                }
-            });
         }
     }
 }
