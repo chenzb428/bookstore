@@ -10,10 +10,12 @@ import './assets/styles/resets.css';
 import './assets/styles/common.css';
 
 import { factPrice, currency, formatTime } from './libs/filters';
+import MyPlugin from './components/common';
 
 Vue.config.productionTip = false
 
 Vue.use(ElementUI);
+Vue.use(MyPlugin);
 
 Vue.filter('factPrice', factPrice);
 Vue.filter('currency', currency);

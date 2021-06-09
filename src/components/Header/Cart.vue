@@ -1,12 +1,26 @@
 <template>
     <div class="cart float-left">
-        <router-link to="cart">购物车</router-link>
+        <router-link to="cart">购物车&nbsp;&nbsp;{{ bookTotalMount }}</router-link>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
+import { setCartStorage } from '../../libs/utils';
+
 export default {
-    name: 'HeaderCart'
+    name: 'HeaderCart',
+    computed: {
+        ...mapState('cart', ['bookTotalMount', 'bookTotalPrice', 'bookCartData'])
+    },
+    updated() {
+        setCartStorage({
+            bookTotalMount: this.bookTotalMount,
+            bookTotalPrice: this.bookTotalPrice,
+            bookCartData: this.bookCartData
+        });
+    }
 }
 </script>
 

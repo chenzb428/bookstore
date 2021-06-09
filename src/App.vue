@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 import MyHeader from './components/Header';
 import NavBar from './components/NavBar';
 
@@ -15,6 +17,12 @@ export default {
   components: {
     MyHeader,
     NavBar
+  },
+  mounted() {
+    this.setData();
+  },
+  methods: {
+    ...mapActions('cart', ['setData'])
   }
 }
 </script>

@@ -21,7 +21,7 @@
                     {{ item.brief }}
                 </p>
             </div>
-            <el-button class="addCartButton" type="danger">加入购物车</el-button>
+            <AddCartButton type="PLUS" :item="item" />
         </div>
     </div>
 </template>
