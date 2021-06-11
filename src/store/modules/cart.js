@@ -74,6 +74,12 @@ const mutations = {
         state.bookTotalPrice -= totalPrice;
         state.bookTotalMount -= totalMount;
         state.bookCartData = state.bookCartData.filter(item => item.id !== id);
+    },
+    PAY_CART(state) {
+        state.bookCartData.length = 0;
+        state.bookCartData = [];
+        state.bookTotalMount = 0;
+        state.bookTotalPrice = 0;
     }
 }
 
@@ -97,6 +103,9 @@ const actions = {
     },
     delCart({ commit }, payload) {
         commit('DEL_CART', payload);
+    },
+    payCart({ commit }) {
+        commit('PAY_CART');
     }
 }
 
