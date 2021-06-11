@@ -12,7 +12,7 @@
                     </el-table-column>
                     <el-table-column label="商品名称">
                         <template slot-scope="scope">
-                            <h1 class="title">{{ scope.row.title }}</h1>
+                            <router-link :to="`/book/${scope.row.id}`" target="_blank"><h1 class="title">{{ scope.row.title }}</h1></router-link>
                         </template>
                     </el-table-column>
                     <el-table-column label="单价" width="120">
@@ -38,7 +38,7 @@
                 </el-table>
                 <div class="total-panel float-right">
                     <span class="total-price">总价：￥{{ bookTotalPrice.toFixed(2) }}</span>
-                    <el-button size="small" type="danger">结算</el-button>
+                    <router-link :to="{name: 'check'}"><el-button size="small" type="danger">结算</el-button></router-link>
                 </div>
             </div>
         </div>

@@ -1,11 +1,28 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store'
 
 import HomePage from '../views/Home';
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/Login'),
+    meta: {
+      title: '登录'
+    }
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('../views/Register'),
+    meta: {
+      title: '注册'
+    }
+  },
   {
     path: '/',
     redirect: {
@@ -53,22 +70,6 @@ const routes = [
     }
   },
   {
-    path: '/login',
-    name: 'login',
-    component: () => import('../views/Login'),
-    meta: {
-      title: '登录'
-    }
-  },
-  {
-    path: '/register',
-    name: 'register',
-    component: () => import('../views/Register'),
-    meta: {
-      title: '注册'
-    }
-  },
-  {
     path: '/search',
     name: 'search',
     component: () => import('../views/Search'),
@@ -99,6 +100,15 @@ const routes = [
     meta: {
       title: '图书'
     }
+  },
+  {
+    path: '/check',
+    name: 'check',
+    component: () => import('../views/CheckOut'),
+    meta: {
+      title: '结算',
+      requiresAuth: true
+    }
   }
 ]
 
@@ -106,6 +116,24 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth))
+  {
+    // 路由需要验证，判断用户是否已经登录
+    if(store.state.user.user){
+      next(); 
+    }
+    else{
+      next({
+        path: '/login',
+        query: {redirect: to.fullPath}
+      });
+    }
+  }
+  else
+    next();
 })
 
 router.afterEach((to) => {
