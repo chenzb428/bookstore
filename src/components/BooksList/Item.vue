@@ -1,7 +1,7 @@
 <template>
     <div class="book-item clear-fix">
         <div class="cover float-left">
-            <el-image style="width: 200px; height: 200px" :src="item.bigImgUrl"></el-image>
+            <el-image style="width: 200px; height: 200px" :src="'/api/' + item.bigImgUrl"></el-image>
         </div>
         <div class="content float-left">
             <router-link class="titile" :to="`/book/${item.id}`" target="_blank">
@@ -27,10 +27,15 @@
 </template>
 
 <script>
+import AddCartButton from '../AddToCartBtn';
+
 export default {
     name: 'CategoryBookItem',
     props: {
         item: Object
+    },
+    components: {
+        AddCartButton
     }
 }
 </script>

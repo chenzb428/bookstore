@@ -13,16 +13,16 @@ const mutations = {
         state.bookCartData = bookCartData;
     },
     SET_TOTAL(state, payload) {
-        const { type, price } = payload;
+        const { type, price, totalMount=1 } = payload;
 
         switch (type) {
             case 'PLUS':
-                state.bookTotalPrice += price;
-                state.bookTotalMount += 1;
+                state.bookTotalPrice += price * totalMount;
+                state.bookTotalMount += totalMount;
                 break;
             case 'MINUS':
-                state.bookTotalPrice -= price;
-                state.bookTotalMount -= 1;
+                state.bookTotalPrice -= price * totalMount;
+                state.bookTotalMount -= totalMount;
                 break;
             default:
                 break;
@@ -34,7 +34,8 @@ const mutations = {
             id,
             title,
             img,
-            price
+            price,
+            totalMount=1
         } = payload;
 
         const index = state.bookCartData.findIndex(item => item.id === id);
@@ -46,18 +47,18 @@ const mutations = {
                 title,
                 img,
                 price,
-                totalMount: 1,
-                totalPrice: price
+                totalMount: totalMount,
+                totalPrice: totalMount * price
             });
         } else {
             switch (type) {
                 case 'PLUS':
-                    state.bookCartData[index].totalMount += 1;
-                    state.bookCartData[index].totalPrice += price;
+                    state.bookCartData[index].totalMount += totalMount;
+                    state.bookCartData[index].totalPrice += price * totalMount;
                     break;
                 case 'MINUS':
-                    state.bookCartData[index].totalMount -= 1;
-                    state.bookCartData[index].totalPrice -= price;
+                    state.bookCartData[index].totalMount -= totalMount;
+                    state.bookCartData[index].totalPrice -= price * totalMount;
 
                     if (!state.bookCartData[index].totalMount) {
                         state.bookCartData = state.bookCartData.filter(item => item.id !== id);
@@ -67,6 +68,12 @@ const mutations = {
                     break;
             }
         }
+    },
+    DEL_CART(state, payload) {
+        const { id, totalPrice, totalMount } = payload;
+        state.bookTotalPrice -= totalPrice;
+        state.bookTotalMount -= totalMount;
+        state.bookCartData = state.bookCartData.filter(item => item.id !== id);
     }
 }
 
@@ -87,6 +94,9 @@ const actions = {
     },
     setCart({ commit }, payload) {
         commit('SET_CART', payload);
+    },
+    delCart({ commit }, payload) {
+        commit('DEL_CART', payload);
     }
 }
 

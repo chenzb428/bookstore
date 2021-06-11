@@ -1,7 +1,7 @@
 <template>
     <router-link class="book-item float-left" :to="`/book/${item.id}`">
         <div class="cover">
-            <el-image :src="item.imgUrl"></el-image>
+            <el-image :src="'/api/' + item.imgUrl"></el-image>
         </div>
         <div class="title">
             <h1>{{ item.title }}</h1>

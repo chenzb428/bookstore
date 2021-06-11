@@ -17,7 +17,7 @@ export default {
         addToCart(data, type) {
             this.setTotal({
                 type,
-                price: parseFloat(data.discount * data.price)
+                price: data.discount * data.price
             });
 
             this.setCart({
@@ -25,7 +25,7 @@ export default {
                 id: data.id,
                 title: data.title,
                 img: data.imgUrl,
-                price: parseFloat(data.discount * data.price)
+                price: data.discount * data.price
             });
         },
         ...mapActions('cart', ['setTotal', 'setCart'])

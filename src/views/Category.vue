@@ -28,7 +28,9 @@ export default {
         });
     },
     beforeRouteUpdate(to, from, next) {
-        this.getCategoryContent(to.fullPath);
+        if(to.fullPath !== 'cart') {
+            getCategoryContent(to.fullPath);
+        }
         next();
     },
     mounted() {

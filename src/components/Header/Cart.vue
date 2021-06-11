@@ -1,6 +1,6 @@
 <template>
     <div class="cart float-left">
-        <router-link to="cart">购物车&nbsp;&nbsp;{{ bookTotalMount }}</router-link>
+        <router-link to="/cart">购物车&nbsp;&nbsp;{{ bookTotalMount }}</router-link>
     </div>
 </template>
 

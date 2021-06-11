@@ -7,7 +7,7 @@
                           :cell-style="{'text-align':'center'}">
                     <el-table-column width="300">
                         <template slot-scope="scope">
-                    　　　　<el-image :src="scope.row.img" style="width: 80px; height: 80px"></el-image>
+                    　　　　<el-image :src="'/api/' + scope.row.img" style="width: 80px; height: 80px"></el-image>
                     　　</template>
                     </el-table-column>
                     <el-table-column label="商品名称">
@@ -17,29 +17,29 @@
                     </el-table-column>
                     <el-table-column label="单价" width="120">
                         <template slot-scope="scope">
-                            <span>￥{{ scope.row.price }}</span>
+                            <span>￥{{ scope.row.price.toFixed(2) }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column prop="totalMount" label="数量" width="120">
                         <template slot-scope="scope">
-                            <div class="calculator">
-                                <el-button size="mini" @click="setCartItem(scope.row.id, scope.row.price, 'PLUS')">+</el-button>
-                                <span>{{ scope.row.totalMount }}</span>
-                                <el-button size="mini" @click="setCartItem(scope.row.id, scope.row.price, 'MINUS')">-</el-button>
-                            </div>
+                            <CartCalculator :id="scope.row.id" :price="scope.row.price" :totalMount="scope.row.totalMount" />
                         </template>
                     </el-table-column>
                     <el-table-column label="金额" width="120">
                         <template slot-scope="scope">
-                            <span>￥{{ scope.row.totalPrice }}</span>
+                            <span>{{ scope.row.totalPrice.toFixed(2) }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column label="操作" width="120">
                         <template slot-scope="scope">
-                            <el-button size="small" @click="delCartItem(scope.row.id)">删除</el-button>
+                            <el-button size="small" @click="delCartItem(scope.row.id, scope.row.price, scope.row.totalMount)">删除</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
+                <div class="total-panel float-right">
+                    <span class="total-price">总价：￥{{ bookTotalPrice.toFixed(2) }}</span>
+                    <el-button size="small" type="danger">结算</el-button>
+                </div>
             </div>
         </div>
     </div>
@@ -48,8 +48,18 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 
+import { setMinHeight } from '../libs/utils';
+
+import CartCalculator from '../components/CartCalculator';
+
 export default {
     name: 'CartPage',
+    components: {
+        CartCalculator
+    },
+    mounted() {
+        setMinHeight('.cart-box', 162);
+    },
     methods: {
         setCartItem(id, price, type) {
             this.setTotal({
@@ -63,13 +73,33 @@ export default {
                 type
             });
         },
-        delCartItem(id) {
-
+        delCartItem(id, totalPrice, totalMount) {
+            
+            this.$confirm('您确定要删除商品吗？', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消'
+            }).then(() => {
+                this.delCart({
+                    id,
+                    totalPrice,
+                    totalMount
+                });
+                this.$message({
+                    type: 'success',
+                    message: '删除成功!'
+                });
+            }).catch(() => {
+                state.bookCartData[index].totalMount += 1;
+                // this.$message({
+                //     type: 'info',
+                //     message: '已取消删除'
+                // });          
+            });
         },
-        ...mapActions('cart',['setTotal', 'setCart'])
+        ...mapActions('cart',['setTotal', 'setCart', 'delCart'])
     },
     computed: {
-        ...mapState('cart', ['bookCartData'])
+        ...mapState('cart', ['bookCartData', 'bookTotalPrice'])
     }
 }
 </script>
@@ -79,6 +109,7 @@ export default {
     .container {
         .cart-box {
             box-shadow: 0 5px 10px #d4d4d4;
+            overflow: hidden;
 
             .title {
                 display: inline;
@@ -101,6 +132,13 @@ export default {
                     height: 30px;
                     line-height: 30px;
                     text-align: center;
+                }
+            }
+            .total-panel {
+                margin: 20px;
+
+                .total-price {
+                    margin-right: 20px;
                 }
             }
         }
